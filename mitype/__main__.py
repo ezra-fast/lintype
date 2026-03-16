@@ -1,6 +1,6 @@
 """Mitype."""
 
-from mitype.app import App
+from app import App
 
 if __name__ == "__main__":
     App()

@@ -9,9 +9,9 @@ import os
 import random
 import sys
 
-import mitype
-import mitype.database
-from mitype.history import show_history
+# import mitype
+import database
+from history import show_history
 
 
 def resolve_commandline_arguments():
@@ -104,7 +104,7 @@ def parse_arguments():
 
 def display_version():
     """Display version."""
-    print(f"Mitype version {mitype.__version__}")
+    print(f"Mitype version {__version__}")
 
 
 def load_text_from_file(file_path):
@@ -137,7 +137,9 @@ def load_from_database(text_id):
     """
     row_count = 6000
     if 1 <= text_id <= row_count:
-        text = mitype.database.fetch_text_from_id(text_id)
+        # old:
+        # text = mitype.database.fetch_text_from_id(text_id)
+        text = database.fetch_text_from_id(text_id)
         return text, text_id
 
     print("ID must be in range [1,6000]")
@@ -164,7 +166,9 @@ def load_based_on_difficulty(difficulty_level=random.randrange(1, 6)):
         lower_limit = upper_limit - 1200 + 1
 
         text_id = random.randrange(lower_limit, upper_limit + 1)
-        text = mitype.database.fetch_text_from_id(text_id)
+        # old:
+        # text = mitype.database.fetch_text_from_id(text_id)
+        text = database.fetch_text_from_id(text_id)
 
         return text, text_id
 

@@ -2,7 +2,7 @@
 
 import math
 
-from mitype import timer
+import timer
 
 
 def first_index_at_which_strings_differ(string1, string2):

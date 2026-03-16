@@ -6,8 +6,8 @@ import sys
 import time
 import webbrowser
 
-import mitype.signals
-from mitype.calculations import (
+import signals
+from calculations import (
     accuracy,
     first_index_at_which_strings_differ,
     get_space_count_after_ith_word,
@@ -15,9 +15,9 @@ from mitype.calculations import (
     speed_in_wpm,
     word_wrap,
 )
-from mitype.commandline import load_from_database, resolve_commandline_arguments
-from mitype.history import save_history
-from mitype.keycheck import (
+from commandline import load_from_database, resolve_commandline_arguments
+from history import save_history
+from keycheck import (
     get_key_mapping,
     is_backspace,
     is_ctrl_backspace,
@@ -31,7 +31,8 @@ from mitype.keycheck import (
     is_tab,
     is_valid_initial_key,
 )
-from mitype.timer import get_elapsed_minutes_since_first_keypress
+import timer
+# from timer import get_elapsed_minutes_since_first_keypress
 
 
 class App:
@@ -292,7 +293,9 @@ class App:
             total_chars_in_text = len(self.text_backup)
             wrongly_typed_chars = self.total_chars_typed - total_chars_in_text
             self.accuracy = accuracy(self.total_chars_typed, wrongly_typed_chars)
-            self.time_taken = get_elapsed_minutes_since_first_keypress(self.start_time)
+            # old:
+            # self.time_taken = get_elapsed_minutes_since_first_keypress(self.start_time)
+            self.time_taken = timer.get_elapsed_minutes_since_first_keypress(self.start_time)
 
             self.mode = 1
             # Find time difference between the key strokes
@@ -482,7 +485,7 @@ class App:
             win (any): Curses window.
         """
         current_wpm = 0
-        total_time = mitype.timer.get_elapsed_minutes_since_first_keypress(
+        total_time = timer.get_elapsed_minutes_since_first_keypress(
             self.start_time,
         )
         if total_time != 0:
