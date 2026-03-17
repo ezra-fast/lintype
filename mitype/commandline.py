@@ -172,7 +172,8 @@ def load_based_on_difficulty(difficulty_level=random.randrange(1, 6)):
         # read in the first value (text_id) of the most recent record in the history file
 
         try:
-            text_id = get_history_records(1)[0][0]    # fetching the last record
+            text_id = int(get_history_records(1)[0][0])    # fetching the last record
+            text_id = text_id + 1
         except:
             text_id = random.randrange(lower_limit, upper_limit + 1)
 
