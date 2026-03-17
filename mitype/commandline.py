@@ -11,7 +11,7 @@ import sys
 
 # import mitype
 import database
-from history import show_history
+from history import show_history, get_history_records
 
 
 def resolve_commandline_arguments():
@@ -165,7 +165,17 @@ def load_based_on_difficulty(difficulty_level=random.randrange(1, 6)):
         upper_limit = difficulty_level * 1200
         lower_limit = upper_limit - 1200 + 1
 
-        text_id = random.randrange(lower_limit, upper_limit + 1)
+        # old: random text_id selection if none was provided
+        # text_id = random.randrange(lower_limit, upper_limit + 1)
+
+        # new: 
+        # read in the first value (text_id) of the most recent record in the history file
+
+        try:
+            text_id = get_history_records(1)[0][0]    # fetching the last record
+        except:
+            text_id = random.randrange(lower_limit, upper_limit + 1)
+
         # old:
         # text = mitype.database.fetch_text_from_id(text_id)
         text = database.fetch_text_from_id(text_id)
